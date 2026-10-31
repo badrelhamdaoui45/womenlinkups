@@ -1,0 +1,30 @@
+// @see https://developer.salesforce.com/blogs/2022/02/how-to-work-with-pardots-new-tracking-consent-javascript-api
+// @see https://developer.salesforce.com/docs/marketing/pardot/guide/tracking-and-consent-overview.html
+// @see https://developer.salesforce.com/docs/marketing/pardot/guide/tracking-and-consent-overview.html
+
+piAId = '1059253';
+piCId = '424839';
+piHostname = 'go.upwithwomen.org';
+
+(function () {
+
+    function dispatchPardoLoaded() {
+        var pardotLoadedEvent = new Event( 'pardotLoaded' )
+        window.dispatchEvent( pardotLoadedEvent )
+    }
+
+    function async_load() {
+        var s = document.createElement( 'script' );
+        s.type = 'text/javascript';
+        s.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + piHostname + '/pd.js';
+        var c = document.getElementsByTagName( 'script' )[0];
+        s.onload = dispatchPardoLoaded
+        c.parentNode.insertBefore( s, c );
+    }
+
+    if ( window.attachEvent ) {
+        window.attachEvent( 'onload', async_load );
+    } else {
+        window.addEventListener( 'load', async_load, false );
+    }
+})();
